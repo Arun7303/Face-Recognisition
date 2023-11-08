@@ -1,0 +1,121 @@
+from tkinter import *
+from PIL import Image, ImageTk
+import PIL
+import os
+import subprocess
+
+
+class face_recognition:
+    def __init__(self, root):
+        self.root = root
+        self.root.title("Face Recognition")
+        self.root.geometry("1530x1080+0+0")
+
+        # self.root.minsize(800, 400)
+        # self.root.maxsize(1920, 1080)
+        # self.root.attributes('-fullscreen', True)
+
+        # backgroud
+        img = Image.open(
+            r"D:\Vishwakarma University\SY\ISF\FaceRecognisation\images\bg01.jpg")
+        img = img.resize((1830, 780), PIL.Image.LANCZOS)
+        self.photoimage = ImageTk.PhotoImage(img)
+
+        fir_label = Label(self.root, image=self.photoimage)
+        fir_label.place(x=0, y=0, width=1830, height=880)
+
+        title_label = Label(self.root, text="FACE RECOGNITION SYSTEM", font=(
+            "Arial", 35, "bold"), bg="black", fg="white")
+        title_label.place(x=0, y=0, width=1600, height=50)
+
+        # Button 1 student details
+        img1 = Image.open(
+            r"D:\Vishwakarma University\SY\ISF\FaceRecognisation\images\student1.jpg")
+        img1 = img1.resize((180, 180), PIL.Image.LANCZOS)
+        self.photoimage1 = ImageTk.PhotoImage(img1)
+
+        b1 = Button(self.root, image=self.photoimage1,
+                    highlightbackground="black", highlightthickness=5, command=self.open_student_window,cursor="hand2")
+        b1.place(x=1000, y=100, height=150, width=190)
+
+        btn1_label = Label(self.root, text="PERSON DETAILS", font=(
+            "Arial", 15, "bold"), bg="white", fg="black")
+        btn1_label.place(x=1000, y=245, width=190, height=40)
+
+        # button 2 train data
+        img2 = Image.open(
+            r"D:\Vishwakarma University\SY\ISF\FaceRecognisation\images\traindata1.jpg")
+        img2 = img2.resize((150, 150), PIL.Image.LANCZOS)
+        self.photoimage2 = ImageTk.PhotoImage(img2)
+
+        b2 = Button(self.root, image=self.photoimage2,
+                    highlightbackground="black", highlightthickness=5,cursor="hand2",command=self.open_traindata)
+        b2.place(x=1300, y=100, height=150, width=190)
+
+        btn2_label = Label(self.root, text="TRAIN DATA", font=(
+            "Arial", 15, "bold"), bg="white", fg="black")
+        btn2_label.place(x=1300, y=245, width=190, height=40)
+
+        # button 3 scan face
+        img3 = Image.open(
+            r"D:\Vishwakarma University\SY\ISF\FaceRecognisation\images\obj1.png")
+        img3 = img3.resize((220, 200), PIL.Image.LANCZOS)
+        self.photoimage3 = ImageTk.PhotoImage(img3)
+
+        b3 = Button(self.root, image=self.photoimage3,
+                    highlightbackground="black", highlightthickness=10,cursor="hand2")
+        b3.place(x=420, y=280, height=200, width=220)
+
+        btn3_label = Label(self.root, text="SCAN FACE", font=(
+            "Arial", 15, "bold"), bg="white", fg="black")
+        btn3_label.place(x=420, y=480, width=220, height=40)
+
+        # button 4 exit
+        img4 = Image.open(
+            r"D:\Vishwakarma University\SY\ISF\FaceRecognisation\images\exit.png")
+        img4 = img4.resize((150, 150), PIL.Image.LANCZOS)
+        self.photoimage4 = ImageTk.PhotoImage(img4)
+
+        b4 = Button(self.root, image=self.photoimage4,
+                    highlightbackground="black", highlightthickness=10,cursor="hand2")
+        b4.place(x=1300, y=400, height=150, width=190)
+
+        btn4_label = Label(self.root, text="Exit", font=(
+            "Arial", 15, "bold"), bg="white", fg="black")
+        btn4_label.place(x=1300, y=540, width=190, height=40)
+
+        # button 5 photos
+        img5 = Image.open(
+            r"D:\Vishwakarma University\SY\ISF\FaceRecognisation\images\photos.jpg")
+        img5 = img5.resize((150, 150), PIL.Image.LANCZOS)
+        self.photoimage5 = ImageTk.PhotoImage(img5)
+
+        b5 = Button(self.root, image=self.photoimage5,command=self.openimage,cursor="hand2",
+                    highlightbackground="black", highlightthickness=10)
+        b5.place(x=1000, y=400, height=150, width=190)
+
+        btn4_label = Label(self.root, text="PHOTOS", font=(
+            "Arial", 15, "bold"), bg="white", fg="black")
+        btn4_label.place(x=1000, y=545, width=190, height=40)
+
+    def open_student_window(self):
+        try:
+            subprocess.Popen(["python", "student.py"])
+        except FileNotFoundError:
+            print("Error: 'stude.py' not found.")
+
+
+    def open_traindata(self):
+        try:
+            subprocess.Popen(["python", "train_data.py"])
+        except FileNotFoundError:
+            print("Error: 'train_data.py' not found.")
+
+    def openimage(self):
+        os.startfile("D:\Vishwakarma University\SY\ISF\FaceRecognisation\data")
+
+
+if __name__ == "__main__":
+    root = Tk()
+    obj = face_recognition(root)
+    root.mainloop()
